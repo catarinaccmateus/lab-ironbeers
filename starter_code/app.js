@@ -47,15 +47,19 @@ app.get('/random-beers', (req, res, next) => {
 });
 
 app.get('/random-beers/:id', (req, res, next) => {
-  console.log(req.params.id);
+
+  console.log('this is the id', req.params.id);
 
   punkAPI.getBeer(req.params.id)
-  .then(beers => {
-    res.send(beers)
-  })
-  .catch(error => {
-    console.log(error)
-  })
+    .then(beers => {
+      console.log(beers[0]);
+      res.render('random-beers', {
+        beer: beers[0]
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    })
 });
 
 app.listen(3000);
